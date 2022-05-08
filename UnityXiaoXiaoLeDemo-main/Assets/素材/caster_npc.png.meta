@@ -186,6 +186,7 @@ TextureImporter:
   streamingMipmaps: 0
   streamingMipmapsPriority: 0
   vTOnly: 0
+  ignoreMasterTextureLimit: 0
   grayScaleToAlpha: 0
   generateCubemap: 6
   cubemapConvolution: 0
@@ -1432,6 +1433,61 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
+    nameFileIdTable:
+      caster_npc_18: -8436719431973397568
+      caster_npc_28: -8270159753562187112
+      caster_npc_31: 6966102113047198512
+      caster_npc_51: 4167386746688112316
+      caster_npc_11: -8995232980173399541
+      caster_npc_8: -4647885276512834428
+      caster_npc_50: 8573883939448908566
+      caster_npc_53: 6148804184993858506
+      caster_npc_5: -7942714822609035323
+      caster_npc_29: 2150041724607580813
+      caster_npc_27: -4015266027781514879
+      caster_npc_49: -5179633467015673415
+      caster_npc_16: 5235149976759502834
+      caster_npc_40: 6174174934647425601
+      caster_npc_48: -7181284319661058652
+      caster_npc_46: -7823899253475855082
+      caster_npc_37: 3406764897230687847
+      caster_npc_0: -2632911857273002828
+      caster_npc_2: 8239019997367857725
+      caster_npc_32: -5619289413916909384
+      caster_npc_7: 6828605240689446569
+      caster_npc_12: 2993281070539126654
+      caster_npc_22: -4158778396056354260
+      caster_npc_33: -3103657385290705376
+      caster_npc_34: -2794370648088984793
+      caster_npc_44: 303093498842960764
+      caster_npc_19: 287421635125615337
+      caster_npc_23: -6596341113834545783
+      caster_npc_30: 4051608014222020843
+      caster_npc_4: -1304785519217669327
+      caster_npc_1: 6738096020274354905
+      caster_npc_21: -6871119363733519805
+      caster_npc_3: -7404689824500915362
+      caster_npc_43: 4942751910013149595
+      caster_npc_24: 3583864201388849905
+      caster_npc_9: -6228298786750884329
+      caster_npc_6: -1440025633848089389
+      caster_npc_39: 2686178808413493722
+      caster_npc_17: -576673555068013078
+      caster_npc_36: -7825943778546458181
+      caster_npc_41: -2117046058414519205
+      caster_npc_13: 6986709082613827626
+      caster_npc_52: -6727711395440445500
+      caster_npc_47: -5921216816095659202
+      caster_npc_26: -5787631821050485527
+      caster_npc_10: 1457823265247659074
+      caster_npc_45: -7357348349690316807
+      caster_npc_20: -4866600109920690948
+      caster_npc_38: -2915593381870654490
+      caster_npc_42: 7926869151924690769
+      caster_npc_25: -5288699296341242446
+      caster_npc_15: -6985007959202979852
+      caster_npc_14: -4468045705812911656
+      caster_npc_35: 4535220646372903453
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
