@@ -84,7 +84,6 @@ public class FruitItem : MonoBehaviour
         fruitSpriteObj = null;
         // 水果消失事件
         EventDispatcher.instance.DispatchEvent(EventDef.EVENT_FRUIT_DISAPPEAR, m_selfTransform.position);
-        // 加分事件，每个水果10分
-        EventDispatcher.instance.DispatchEvent(EventDef.EVENT_ADD_SCORE, 10);
+        
     }
 }

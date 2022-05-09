@@ -12,8 +12,5 @@ public class EventDef
     /// </summary>
     public const string EVENT_FRUIT_DISAPPEAR = "EVENT_FRUIT_DISAPPEAR";
 
-    /// <summary>
-    /// 加分
-    /// </summary>
-    public const string EVENT_ADD_SCORE = "EVENT_ADD_SCORE";
+
 }
