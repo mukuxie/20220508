@@ -18,7 +18,8 @@ public class IceSpawner : MonoBehaviour
                 // 实例化冰块物体
                 var obj = Instantiate(iceObj);
                 obj.transform.SetParent(iceObj.transform.parent, false);
-                obj.transform.localPosition = new Vector3((columIndex - GlobalDef.COLUM_COUNT / 2f) * GlobalDef.CELL_SIZE + GlobalDef.CELL_SIZE / 2f, (rowIndex - GlobalDef.ROW_COUNT / 2f) * GlobalDef.CELL_SIZE + GlobalDef.CELL_SIZE / 2f, 0);
+                obj.transform.localPosition = new Vector3((columIndex - GlobalDef.COLUM_COUNT / 2f) * GlobalDef.CELL_SIZE + GlobalDef.CELL_SIZE / 2f
+                    , (rowIndex - GlobalDef.ROW_COUNT / 2f) * GlobalDef.CELL_SIZE + GlobalDef.CELL_SIZE / 2f, 0);
             }
         }
         iceObj.SetActive(false);
