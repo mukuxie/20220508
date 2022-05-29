@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: "Assets/Scenes/\u4ECB\u9762.unity"
     guid: 02201a62a9fc7f740a50a0cc8249deec
   - enabled: 1
-    path: Assets/Scenes/Game.unity
+    path: Assets/Scenes/KillTimeMode 1.unity
+    guid: 80fe22cc46c24a447838d3d06db9709c
+  - enabled: 1
+    path: Assets/Scenes/TimeMode.unity
     guid: 9db929623eb27bb418bf3e486e004266
   m_configObjects: {}
