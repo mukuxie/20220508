@@ -21,11 +21,7 @@ public class GamePanel : MonoBehaviour
 
     private void Awake()
     {
-        homeBtn.onClick.AddListener(() => 
-        {
-            // Home按钮被点击，进入Login场景
-            SceneManager.LoadScene(0);
-        });
+      
 
         // 注册加分事件
         EventDispatcher.instance.Regist(EventDef.EVENT_ADD_SCORE, OnAddScore);
