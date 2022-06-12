@@ -27,6 +27,11 @@ public class EffectSpawner : MonoBehaviour
 
     private Transform m_effectRoot;
 
+    //[Header("音效")]
+    //public AudioClip soundCrash;
+
+   // private AudioSource aud;
+
     private void Awake()
     {
         m_effectRoot = transform;
@@ -76,6 +81,8 @@ public class EffectSpawner : MonoBehaviour
         }
         obj.SetActive(true);
         obj.transform.position = pos;
+        //aud.PlayOneShot(soundCrash);
+
     }
 
     /// <summary>

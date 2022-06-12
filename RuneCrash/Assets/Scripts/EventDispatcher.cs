@@ -44,6 +44,7 @@ public class EventDispatcher
             {
                 listeners.Remove(eventName);
             }
+            
         }
     }
 
@@ -67,6 +68,7 @@ public class EventDispatcher
                     catch (System.Exception ex)
                     {
                         Debug.LogErrorFormat(szErrorMessage, eventName, ex.Message, ex.StackTrace);
+                        
                     }
                 }
             }
@@ -83,6 +85,8 @@ public class EventDispatcher
         if (listeners.ContainsKey(eventName))
         {
             listeners.Remove(eventName);
+            
+
         }
     }
 
