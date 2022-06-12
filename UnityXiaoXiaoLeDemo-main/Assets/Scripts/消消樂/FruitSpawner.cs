@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class FruitSpawner : MonoBehaviour
 {
@@ -13,7 +15,6 @@ public class FruitSpawner : MonoBehaviour
     /// 生成出来的水果二维数组
     /// </summary>
     public ArrayList fruitList;
-
 
     /// <summary>
     /// 水果的根节点
@@ -38,6 +39,11 @@ public class FruitSpawner : MonoBehaviour
     /// 需要消除掉的水果数组
     /// </summary>
     private ArrayList m_matchFruits;
+
+    /// <summary>
+    /// 玩家可以滑動了嗎
+    /// </summary>
+    private bool m_canSlide = false;
 
     private void Awake()
     {
@@ -65,6 +71,7 @@ public class FruitSpawner : MonoBehaviour
 
         // 首次生成水果后，执行一次自动检测
         StartCoroutine(AutoMatchAgain());
+        
     }
 
     private void Update()
@@ -92,9 +99,13 @@ public class FruitSpawner : MonoBehaviour
         // 滑动量太小，不处理
         if (Mathf.Abs(m_fingerMoveX) < 0.3f && Mathf.Abs(m_fingerMoveY) < 0.3f)
             return;
-
+        // 關閉滑動，不處理
+        if (!m_canSlide)
+            return;
         OnFruitMove();
 
+        // 關閉滑動
+        m_canSlide = false;
         m_fingerMoveX = 0;
         m_fingerMoveY = 0;
     }
@@ -130,6 +141,7 @@ public class FruitSpawner : MonoBehaviour
                 m_curSelectFruit = null;
             }
         }
+        
     }
 
     /// <summary>
@@ -179,6 +191,9 @@ public class FruitSpawner : MonoBehaviour
         {
             // 没有任何水果匹配，交换回来
             Exchange(item1, item2);
+
+            // 恢復滑動
+            m_canSlide = true;
         }
     }
 
@@ -188,6 +203,13 @@ public class FruitSpawner : MonoBehaviour
     /// <returns></returns>
     IEnumerator AutoMatchAgain()
     {
+        // 每次檢查水果消除之前都檢查一次 可不可以消除
+        if (CheckDeadEnd())
+        {
+            ResetAllFruit();
+            yield break;
+        }
+
         if (CheckHorizontalMatch() || CheckVerticalMatch())
         {
             RemoveMatchFruit();
@@ -197,8 +219,12 @@ public class FruitSpawner : MonoBehaviour
             m_matchFruits = new ArrayList();
 
             yield return new WaitForSeconds(0.6f);
+            
             StartCoroutine(AutoMatchAgain());
         }
+
+        // 恢復滑動
+        m_canSlide = true;
     }
 
     /// <summary>
@@ -209,6 +235,8 @@ public class FruitSpawner : MonoBehaviour
 
         SetFruitItem(item1.rowIndex, item1.columIndex, item2);
         SetFruitItem(item2.rowIndex, item2.columIndex, item1);
+
+        // print(item1 + ", " + item2);
 
         int tmp = 0;
         tmp = item1.rowIndex;
@@ -372,4 +400,106 @@ public class FruitSpawner : MonoBehaviour
         bhv.CreateFruitBg(fruitType, fruitPrefabs[fruitType]);
         return bhv;
     }
+
+    // NkE1
+
+    /// <summary>
+    /// 重製所有版面
+    /// </summary>
+    public void ResetAllFruit()
+    {
+        for (int i = m_fruitRoot.childCount - 1; i >= 0; i--)
+        {
+            Destroy(m_fruitRoot.GetChild(i).gameObject);
+        }
+
+        SpawnFruitArrayList();
+
+        StartCoroutine(AutoMatchAgain());
+    }
+
+    #region 檢查死局
+    /// <summary>
+    /// 檢查版面是否沒東西可消
+    /// </summary>
+    private bool CheckDeadEnd()
+    {
+        // 往右邊旋轉
+        for (int i = 0; i < GlobalDef.ROW_COUNT; ++i)
+        {
+            for (int j = 0; j < GlobalDef.COLUM_COUNT-1; ++j)
+            {
+                var item1 = GetFruitItem(i, j) as FruitItem;
+                var item2 = GetFruitItem(i, j + 1) as FruitItem;
+
+                ExchangeWithoutUpdate(item1, item2);
+
+                if (CheckHorizontalMatch() || CheckVerticalMatch())
+                {
+                    // 刪除m_matchFruits
+                    m_matchFruits = new ArrayList();
+
+                    ExchangeWithoutUpdate(item1, item2);
+
+                    // 還有未消方塊 return
+                    print("Continued");
+                    return false;
+                }
+                ExchangeWithoutUpdate(item1, item2);
+            }
+        }
+
+        for (int i = 0; i < GlobalDef.ROW_COUNT - 1; ++i)
+        {
+            for (int j = 0; j < GlobalDef.COLUM_COUNT; ++j)
+            {
+                var item1 = GetFruitItem(i, j) as FruitItem;
+                var item2 = GetFruitItem(i + 1, j) as FruitItem;
+
+                ExchangeWithoutUpdate(item1, item2);
+
+                if (CheckHorizontalMatch() || CheckVerticalMatch())
+                {
+                    // 刪除m_matchFruits
+                    m_matchFruits = new ArrayList();
+
+                    ExchangeWithoutUpdate(item1, item2);
+
+                    // 還有未消方塊
+                    print("Continued");
+                    return false;
+                }
+                ExchangeWithoutUpdate(item1, item2);
+            }
+        }
+
+        print("U Failer");
+        return true;
+    }
+
+    /// <summary>
+    /// 內部ITEM交換不更改圖片
+    /// </summary>
+    private void ExchangeWithoutUpdate(FruitItem item1, FruitItem item2)
+    {
+        SetFruitItem(item1.rowIndex, item1.columIndex, item2);
+        SetFruitItem(item2.rowIndex, item2.columIndex, item1);
+
+        int tmp = 0;
+        tmp = item1.rowIndex;
+        item1.rowIndex = item2.rowIndex;
+        item2.rowIndex = tmp;
+
+        tmp = item1.columIndex;
+        item1.columIndex = item2.columIndex;
+        item2.columIndex = tmp;
+
+        // item1.UpdatePosition(item1.rowIndex, item1.columIndex, true);
+        // item2.UpdatePosition(item2.rowIndex, item2.columIndex, true);
+    }
+
+
+    #endregion
 }
+
+
