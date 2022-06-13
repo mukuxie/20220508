@@ -27,16 +27,19 @@ public class EffectSpawner : MonoBehaviour
 
     private Transform m_effectRoot;
 
-    //[Header("音效")]
-    //public AudioClip soundCrash;
+    [Header("音效")]
+    public AudioClip soundCrash;
 
-   // private AudioSource aud;
+    private AudioSource aud;
 
     private void Awake()
     {
         m_effectRoot = transform;
 
         EventDispatcher.instance.Regist(EventDef.EVENT_FRUIT_DISAPPEAR, OnFruitDisappear);
+
+        // 抓音效播放器
+        aud = GetComponent<AudioSource>();
     }
 
     private void OnDestroy()
@@ -81,8 +84,9 @@ public class EffectSpawner : MonoBehaviour
         }
         obj.SetActive(true);
         obj.transform.position = pos;
-        //aud.PlayOneShot(soundCrash);
 
+        // 播放消除音效
+        aud.PlayOneShot(soundCrash);
     }
 
     /// <summary>
